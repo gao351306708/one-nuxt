@@ -1,0 +1,6 @@
+.splash-enter-active, .splash-leave-active {
+  transition: opacity 1s;
+}
+.splash-enter, .splash-leave-to {
+  opacity: 0;
+}
