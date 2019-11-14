@@ -21,9 +21,13 @@ module.exports = {
    */
   loading: { color: '#fff' },
   /*
-   ** Global CSS
+   ** Global CSS,引入全局css
    */
-  css: ['~/assets/css/main.css','element-ui/lib/theme-chalk/index.css','~/assets/css/page-transition.css'],
+  css: [
+    '~/assets/css/main.css',
+    'element-ui/lib/theme-chalk/index.css',
+    '~/assets/css/page-transition.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -41,8 +45,17 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
   ],
+  /*
+   ** Global less,引入全局less,需要先引入@nuxtjs/style-resources模块
+   */
+  styleResources: {
+    less: [
+      './assets/css/common.less', // 自己项目中的样式文件的路径
+      ]
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -57,6 +70,17 @@ module.exports = {
      ** You can extend webpack config here
      */
     //extend(config, ctx) {},
-    devtools:true
+    devtools:true,
+    // styleResources: {
+    //   less: './assets/css/common.less',
+    //   options: {
+    //     // See https://github.com/yenshih/style-resources-loader#options
+    //     // Except `patterns` property
+    //   }
+    // }
+  },
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0' // default: localhost
   }
 }

@@ -31,12 +31,12 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .footer{
     position: absolute;
     width: 100%;
     height: 60px;
-    background-color: #63707e;
+    background-color: @backgroundColor;
     bottom: 0;
     display: flex;
     justify-content: space-around;

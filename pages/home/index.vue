@@ -1,15 +1,5 @@
 <template>
-  <div class="container">
-    <Head>
-      <div v-if="currentPart == 'one' " class="headOne">
-        <div class="left"><span class="day">12</span>9月</div>
-        <div class="right">星期三</div>
-      </div>
-      <div v-if="currentPart == 'all' " class="headAll">
-        <div>ONE  <span>IS</span>  ALL</div>
-      </div>
-    </Head>
-    <div class="contentSection">
+  <div>
       <div class="dayPosts">
         <div class="postImg">
           <img src="../../assets/img/3.gif"/>
@@ -30,32 +20,35 @@
         </div>
       </div>
       <div class="VOLPart">
-        <div class="header" @click="collapse = !collapse">一个VOL.2345<i class="el-icon-arrow-down"></i></div>
-        <div class="content" :class="collapse ? 'collapseh1': 'collapseh2' ">
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
-          <div >越不肯努力便越自怜</div>
+        <div class="header" @click="collapse = !collapse">一个VOL.2345<i :class="collapse ? 'el-icon-arrow-up':'el-icon-arrow-down' "></i></div>
+        <el-collapse-transition>
+          <div v-show="collapse" class="transition-box">
+            <div class="volList" v-for="(item,index) in volList" :key="index">
+              <i class="el-icon-arrow-right"></i>
+              <div class="title">
+                <div class="top">{{'阅读'+item}}</div>
+                <div>云端之上</div>
+              </div>
+            </div>
+          </div>
+        </el-collapse-transition>
+      </div>
+      <div class="readPart">
+        <div class=" readPartOne" v-for="(item,index) in volList" :key="index" @click="gotoArticle(item)">
+          <div class="type">{{'-阅读-'+item}}</div>
+          <div class="title">云端之上</div>
+          <div class="byname">文/路平生</div>
+          <img src="../../assets/img/3.gif"/>
+          <div class="content">衰老来得太早,她失望的是没有对抗磨难的心</div>
+          <div class="footerLine">
+            <div>今天</div>
+            <div class="right">
+              <img src="../../assets/img/heart-dash.png" />
+              <img src="../../assets/img/share.png" />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="readPart"></div>
-    </div>
-    <FooterTab @handleClick='handleClick' />
   </div>
 </template>
 
@@ -64,10 +57,6 @@ import Head from '~/components/Head.vue'
 import FooterTab from '~/components/FooterTab.vue'
 
 export default {
-  transition: {
-    name:'splash',
-    mode:'out-in'
-  },
   components: {
     Head,
     FooterTab
@@ -76,62 +65,27 @@ export default {
     return {
       list: new Array(20),
       currentPart:'one',
-      collapse:false
+      collapse:false,
+      volList:[1,2,3,4,5,6,7,8,9],//VOL列表
     }
+  },
+  mounted() {
   },
   methods:{
 	  handleClick(param){
 		  console.log('111111--->',param);
       this.currentPart = param;
-	  }
+	  },
+    gotoArticle(item){
+      this.$router.push('/articleDetail')
+    }
   }
 }
 </script>
 
 <style lang="less">
-.container {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-.contentSection{
-  position: relative;
-  top: 60px;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-bottom: 80px;
-}
-.headOne{
-  display: flex;
-  height: 100%;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 0 1rem;
-}
-.headOne .left .day{
-  font-family: fantasy;
-  font-size: 2.5rem;
-}
-.headOne .right{
-  padding-bottom: 0.3rem;
-}
-.headAll{
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-.headAll span{
-  margin: 0 0.625rem;
-}
 .dayPosts{
-  background-color: #63707e;
+  background-color: @backgroundColor;
   .postImg{
     border: 0;
   }
@@ -175,23 +129,62 @@ export default {
   }
 }
 .VOLPart{
-  height: 3rem;
-  background-color: #63707e;
+  background-color: @backgroundColor;
   margin: 0.5rem 0;
   .header{
     display: flex;
-    height: 100%;
+    height: 3rem;
     justify-content: center;
     align-items: center;
   }
-  .collapseh1{
-    height: 0;
-    display: none;
+  .transition-box {
+    padding: 0 20px;
   }
-  .collapseh2{
+  .volList{
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    .title{
+      margin-left: 0.3rem;
+      .top{
+        margin-bottom: 0.3rem;
+      }
+    }
   }
 }
 .readPart{
-
+  .readPartOne{
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background-color: @backgroundColor;
+    .type{
+      text-align: center;
+      color: #c9c9c9;
+      font-size: 0.875rem;
+    }
+    .title{
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    .byname{
+      margin: 0.3rem 0;
+    }
+    img{
+      width: 100%;
+      max-height: calc(100vw * 3/5);
+    }
+    .content{
+      margin: 0.6rem 0 2rem 0;
+    }
+    .footerLine{
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0.625rem;
+      .right img{
+        width: 1.375rem;
+        margin: 0 0.625rem;
+      }
+    }
+  }
 }
 </style>
