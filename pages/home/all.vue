@@ -51,6 +51,12 @@
 
 <style lang="less">
   .allSection{
+    position: relative;
+    top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 80px;
     width: 100%;
     overflow-x: hidden;
     .bannerSection{

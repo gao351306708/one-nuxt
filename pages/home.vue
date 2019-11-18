@@ -1,17 +1,15 @@
 <template>
   <div class="container">
-    <Head>
+    <Head v-if="currentPart != 'me' ">
       <div v-if="currentPart == 'one' " class="headOne">
-        <div class="left"><span class="day">12</span>9月</div>
-        <div class="right">星期三</div>
+        <div class="left"><span class="day">{{dayDate}}</span>{{yearDate}}</div>
+        <div class="right">{{week}}</div>
       </div>
       <div v-if="currentPart == 'all' " class="headAll">
         <div>ONE  <span>IS</span>  ALL</div>
       </div>
     </Head>
-    <div class="contentSection">
-      <nuxt-child></nuxt-child>
-    </div>
+    <nuxt-child></nuxt-child>
     <FooterTab @handleClick='handleClick' />
   </div>
 </template>
@@ -19,6 +17,8 @@
 <script>
 import Head from '~/components/Head.vue'
 import FooterTab from '~/components/FooterTab.vue'
+const moment = require('moment');
+moment.locale('zh-cn');
 
 export default {
   transition: {
@@ -35,6 +35,13 @@ export default {
       currentPart:'one',
       collapse:false,
       volList:[1,2,3,4,5,6,7,8,9],//VOL列表
+      dayDate:moment().format('D'),
+      week:moment().format('dddd'),
+    }
+  },
+  computed:{
+    yearDate(){
+      return moment().format('M') +'.'+ moment().format('YYYY');
     }
   },
   mounted() {
@@ -78,14 +85,6 @@ export default {
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-.contentSection{
-  position: relative;
-  top: 60px;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-bottom: 80px;
 }
 .headOne{
   display: flex;

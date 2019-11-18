@@ -23,9 +23,8 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-  width: 100vh;
   background: url('../assets/img/splash.jpg');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
   margin: 0;

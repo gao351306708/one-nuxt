@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contentSection">
       <div class="dayPosts">
         <div class="postImg">
           <img src="../../assets/img/3.gif"/>
@@ -84,6 +84,14 @@ export default {
 </script>
 
 <style lang="less">
+ .contentSection{
+   position: relative;
+   top: 60px;
+   height: calc(100vh - 60px);
+   overflow-y: auto;
+   overflow-x: hidden;
+   padding-bottom: 80px;
+ }
 .dayPosts{
   background-color: @backgroundColor;
   .postImg{
