@@ -10,7 +10,7 @@
       <div class="classifyGuide">
         <div class="guideTitle">分类导航</div>
         <div class="guide">
-          <div class="part">1</div>
+          <div class="part" @click="gotoActicleList(1)">1</div>
           <div class="part">2</div>
           <div class="part">3</div>
           <div class="part">4</div>
@@ -45,6 +45,9 @@
     }
     ,
     methods:{
+      gotoActicleList(key){
+        this.$router.push('/acticleList')
+      }
     }
   }
 </script>

@@ -1,16 +1,18 @@
 <template>
   <div class="container">
-    <Head v-if="currentPart != 'me' ">
-      <div v-if="currentPart == 'one' " class="headOne">
+    <Head v-if="currentTab != 'me' ">
+      <div v-if="currentTab == 'one' " class="headOne">
         <div class="left"><span class="day">{{dayDate}}</span>{{yearDate}}</div>
         <div class="right">{{week}}</div>
       </div>
-      <div v-if="currentPart == 'all' " class="headAll">
+      <div v-if="currentTab == 'all' " class="headAll">
         <div>ONE  <span>IS</span>  ALL</div>
       </div>
     </Head>
-    <nuxt-child></nuxt-child>
-    <FooterTab @handleClick='handleClick' />
+    <nuxt-child keep-alive></nuxt-child>
+    <transition name='fade'>
+      <FooterTab v-if="footerFlag" />
+    </transition>
   </div>
 </template>
 
@@ -31,49 +33,23 @@ export default {
   },
   data() {
     return {
-      list: new Array(20),
-      currentPart:'one',
-      collapse:false,
-      volList:[1,2,3,4,5,6,7,8,9],//VOL列表
       dayDate:moment().format('D'),
       week:moment().format('dddd'),
+      yearDate:moment().format('M') +'.'+ moment().format('YYYY'),
     }
   },
   computed:{
-    yearDate(){
-      return moment().format('M') +'.'+ moment().format('YYYY');
-    }
+    currentTab () {
+      return this.$store.state.currentTab || 'one'
+    },
+    footerFlag () {
+      return this.$store.state.footerFlag
+    },
   },
   mounted() {
-    this.$axios.get('http://wthrcdn.etouch.cn/weather_mini',{
-      params:{city:'北京'},
-      }).then((res)=>{
-      console.log('111111111-->',res)
-    })
-  }
-  ,
+    console.log('1111111--->>>',this.$store.state.currentTab)
+  },
   methods:{
-	  handleClick(param){
-		  console.log('111111--->',param);
-      this.currentPart = param;
-      switch (param){
-        case 'all':
-          this.$router.push({
-            path: '/home/all',
-           });
-          break;
-        case 'me':
-          this.$router.push({
-            path: '/home/me',
-           });
-            break;
-        default:
-          this.$router.push({
-            path: '/home',
-           });
-          break;
-      }
-	  }
   }
 }
 </script>

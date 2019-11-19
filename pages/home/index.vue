@@ -1,5 +1,5 @@
 <template>
-  <div class="contentSection">
+  <div class="contentSection" @scroll="scrollEvent">
       <div class="dayPosts">
         <div class="postImg">
           <img src="../../assets/img/3.gif"/>
@@ -53,31 +53,32 @@
 </template>
 
 <script>
-import Head from '~/components/Head.vue'
-import FooterTab from '~/components/FooterTab.vue'
-
 export default {
-  components: {
-    Head,
-    FooterTab
-  },
   data() {
     return {
       list: new Array(20),
-      currentPart:'one',
       collapse:false,
       volList:[1,2,3,4,5,6,7,8,9],//VOL列表
+      footerFlag:false,//底部栏显隐
     }
   },
   mounted() {
+    //this.$store.commit('updateFooterFlag',{footerFlag:false})
   },
   methods:{
-	  handleClick(param){
-		  console.log('111111--->',param);
-      this.currentPart = param;
-	  },
     gotoArticle(item){
       this.$router.push('/articleDetail')
+    },
+    scrollEvent(e){
+      if(e.target.scrollTop>10 && !this.footerFlag){
+        this.footerFlag = true;
+        this.$store.commit('updateFooterFlag',{footerFlag:true})
+      }
+      if(e.target.scrollTop<=10 && this.footerFlag){
+        this.footerFlag = false;
+        this.$store.commit('updateFooterFlag',{footerFlag:false})
+      }
+
     }
   }
 }

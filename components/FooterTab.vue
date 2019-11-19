@@ -25,7 +25,27 @@
     methods:{
       clickHandle(param){
         this.nowPart = param;
-        this.$emit('handleClick',param);
+        this.$store.commit('updateCurrent',{currentTab:param});
+        switch (param){
+          case 'all':
+            this.$store.commit('updateFooterFlag',{footerFlag:true});
+            this.$router.push({
+              path: '/home/all',
+             });
+            break;
+          case 'me':
+            this.$store.commit('updateFooterFlag',{footerFlag:true});
+            this.$router.push({
+              path: '/home/me',
+             });
+              break;
+          default:
+            this.$store.commit('updateFooterFlag',{footerFlag:false});
+            this.$router.push({
+              path: '/home',
+             });
+            break;
+        }
       }
     }
   }
