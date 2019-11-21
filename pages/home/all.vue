@@ -42,8 +42,7 @@
       }
     },
     mounted() {
-    }
-    ,
+    },
     methods:{
       gotoActicleList(key){
         this.$router.push('/acticleList')

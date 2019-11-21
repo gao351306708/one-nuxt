@@ -9,7 +9,7 @@
         <div>ONE  <span>IS</span>  ALL</div>
       </div>
     </Head>
-    <nuxt-child keep-alive></nuxt-child>
+    <NuxtChild keep-alive />
     <transition name='fade'>
       <FooterTab v-if="footerFlag" />
     </transition>

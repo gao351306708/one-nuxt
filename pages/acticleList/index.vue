@@ -26,15 +26,23 @@
     components: {
       Head,
     },
-    data() {
-      return {
-        list: new Array(20),
-      }
+    //asyncData方法会在组件（限于页面组件）每次加载之前被调用。asyncData 返回的数据融合组件 data 方法返回的数据一并返回给当前组件
+    asyncData () {
+      return new Promise((resolve) => {
+        setTimeout(function () {
+          resolve({
+            list: new Array(20),
+          })
+          this.$nuxt.$loading.finish();
+        }, 2000)
+      })
     },
     computed:{
       todos () {
         return this.$store.state.home.list
       }
+    },
+    mounted() {
     },
     methods:{
       //映射到vuex对应模块得mutations

@@ -29,21 +29,15 @@
         switch (param){
           case 'all':
             this.$store.commit('updateFooterFlag',{footerFlag:true});
-            this.$router.push({
-              path: '/home/all',
-             });
+            this.$router.push('/home/all');
             break;
           case 'me':
-            this.$store.commit('updateFooterFlag',{footerFlag:true});
-            this.$router.push({
-              path: '/home/me',
-             });
+              this.$store.commit('updateFooterFlag',{footerFlag:true});
+              this.$router.push('/home/me');
               break;
           default:
             this.$store.commit('updateFooterFlag',{footerFlag:false});
-            this.$router.push({
-              path: '/home',
-             });
+            this.$router.push('/home');
             break;
         }
       }

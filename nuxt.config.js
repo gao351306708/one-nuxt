@@ -19,7 +19,7 @@ module.exports = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: '~/components/loading.vue',
   /*
    ** Global CSS,引入全局css
    */
@@ -71,16 +71,12 @@ module.exports = {
      */
     //extend(config, ctx) {},
     devtools:true,
-    // styleResources: {
-    //   less: './assets/css/common.less',
-    //   options: {
-    //     // See https://github.com/yenshih/style-resources-loader#options
-    //     // Except `patterns` property
-    //   }
-    // }
   },
   server: {
     port: 8000, // default: 3000
     host: '0.0.0.0' // default: localhost
-  }
+  },
+  router: {
+    base: process.env.NODE_ENV === 'production' ? '/dist/' : '/'
+  },
 }
