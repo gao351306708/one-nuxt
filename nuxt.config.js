@@ -71,6 +71,10 @@ module.exports = {
      */
     //extend(config, ctx) {},
     devtools:true,
+    publicPath:'oneApp',
+  },
+  generate: {
+      dir: 'oneApp',//修改generate编译输出目录名
   },
   server: {
     port: 8000, // default: 3000
