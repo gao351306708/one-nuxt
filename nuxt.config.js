@@ -77,6 +77,6 @@ module.exports = {
     host: '0.0.0.0' // default: localhost
   },
   router: {
-    base: process.env.NODE_ENV === 'production' ? '/dist/' : '/'
+    base: process.env.NODE_ENV === 'production' ? '/oneApp/' : '/'
   },
 }
